@@ -9,6 +9,7 @@ import sys
 from random import shuffle
 
 def _random50():
+    """ Generate sequences of 50 random +/- integers for tests """
     numbers = range(-1000,1001)
     shuffle(numbers)
     return numbers[:50]
@@ -80,6 +81,7 @@ if __name__ == "__main__":
     print sol
     """
     
+    """
     # bigger example
     ex3 = [-830, -147, 484, 231, 631, 331, 540, -448, -707, 537, -51, 593, -334, 363, -613, 105, 502, 119, -110,
             802, 924, -542, 153, 891, 679, 507, -477, 137, -976, -468, 836, -808, 287, -606, 842, -491, -648,
@@ -87,8 +89,8 @@ if __name__ == "__main__":
     sol = [ ex3[i] for i in subset_sum_dynamic(ex3,0) ]
     print sol
     # sol = [593, -707, -448, 331, 231]
-
     """
+
     names = []
     numbers = []
     for i,line in enumerate(sys.stdin.readlines()):
@@ -107,4 +109,3 @@ if __name__ == "__main__":
     sol.sort()
     for item in sol:
         print item
-    """
