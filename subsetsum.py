@@ -32,17 +32,17 @@ def _solution(Q,S,X,Y):
 def subset_sum_dynamic(X,S):
 
     P = N = 0
-    for i in X:
-        if i > 0:
-            P = P + i
+    for x in X:
+        if x > 0:
+            P = P + x
         else:
-            N = N + i
+            N = N + x
 
     Y = []
-    for j in xrange(N,0):
-        Y.append(j)
-    for j in xrange(0,P+1):
-        Y.append(j)
+    for s in xrange(N,0):
+        Y.append(s)
+    for s in xrange(0,P+1):
+        Y.append(s)
 
     Q = []
     for i,x in enumerate(X):
@@ -52,7 +52,7 @@ def subset_sum_dynamic(X,S):
             Q[i][Y.index(x)] = True
             continue
         for j,s in enumerate(Y):
-            if Q[i-1][j] or x == s or ((s-x >= N) and (s-x <= P) and Q[i-1][Y.index(s-x)]):
+            if Q[i-1][j] or (x == s) or ((s-x >= N) and (s-x <= P) and Q[i-1][Y.index(s-x)]):
                 Q[i][j] = True
                 if s == S:
                     return _solution(Q,S,X,Y)
