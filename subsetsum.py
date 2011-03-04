@@ -15,10 +15,13 @@ def _solution(Q,S,X,Y):
 
     while True:
 
+        if not Q[r][c]:
+            return sol
+
         if r == 0:
             if Q[r][c]:
                 sol.append(r)
-            break
+            return sol 
 
         if not Q[r-1][c]:
             sol.append(r)
@@ -26,8 +29,6 @@ def _solution(Q,S,X,Y):
 
         r = r - 1
 
-    return sol
-    
 
 def subset_sum_dynamic(X,S):
 
