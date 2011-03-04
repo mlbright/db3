@@ -13,11 +13,11 @@ def _random50():
     shuffle(numbers)
     return numbers[:50]
 
-def _solution(Q,S,X,Y):
+def _solution(Q,S,X,Y,v2i):
 
     sol = []
     r = len(Q)-1
-    c = Y.index(S)
+    c = v2i[S]
 
     while True:
     
@@ -30,7 +30,7 @@ def _solution(Q,S,X,Y):
 
         elif not Q[r-1][c]:
             sol.append(r)
-            c = Y.index(Y[c] - X[r])
+            c = v2i[Y[c] - X[r]]
 
         r = r - 1
 
@@ -50,18 +50,23 @@ def subset_sum_dynamic(X,S):
     for s in xrange(0,P+1):
         Y.append(s)
 
+    v2i = {} # value to index hash
+    for i,v in enumerate(Y):
+        v2i[v] = i
+    
+
     Q = []
     for i,x in enumerate(X):
         row = [False] * len(Y)
         Q.append(row)
         if i == 0:
-            Q[i][Y.index(x)] = True
+            Q[i][v2i[x]] = True
             continue
         for j,s in enumerate(Y):
-            if Q[i-1][j] or (x == s) or ((s-x >= N) and (s-x <= P) and Q[i-1][Y.index(s-x)]):
+            if Q[i-1][j] or (x == s) or ((s-x >= N) and (s-x <= P) and Q[i-1][v2i[s-x]]):
                 Q[i][j] = True
                 if s == S:
-                    return _solution(Q,S,X,Y)
+                    return _solution(Q,S,X,Y,v2i)
 
     return []
 
