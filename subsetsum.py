@@ -1,5 +1,12 @@
 import sys
 
+def _solution(Q,S,X,Y):
+
+    for r in Q:
+        print r
+
+
+    
 
 def subset_sum(X,S):
 
@@ -12,7 +19,9 @@ def subset_sum(X,S):
     for j in xrange(0,P+1):
         Y.append(j)
 
+    print X
     print Y
+    print
     
     Q = []
     for i,x in enumerate(X):
@@ -26,12 +35,11 @@ def subset_sum(X,S):
                 Q[i][j] = True
             elif Q[i-1][j]:
                 Q[i][j] = True
-            elif (s-x) > 0 and Q[i-1][Y.index(s-x)]:
+            elif ((s-x) in Y) and Q[i-1][Y.index(s-x)]:
                 Q[i][j] = True
             if s == S and Q[i][j]:
-                print "solution found"
+                return _solution(Q,S,X,Y)
 
-    print Q
 
 if __name__ == "__main__":
     ex = [1,-3,2,4]
