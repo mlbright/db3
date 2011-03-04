@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 """ Pseudo polynomial time dynamic programming solution
     Inspired by http://en.wikipedia.org/wiki/Subset_sum_problem#Pseudo-polynomial_time_dynamic_programming_solution
     and http://www.skorks.com/2011/02/algorithms-a-dropbox-challenge-and-dynamic-programming/
@@ -28,8 +30,13 @@ def _solution(Q,S,X,Y):
     
 
 def subset_sum_dynamic(X,S):
-    N = sum([ i for i in X if i < 0 ])
-    P = sum([ i for i in X if i > 0 ])
+
+    P = N = 0
+    for i in X:
+        if i > 0:
+            P = P + i
+        else:
+            N = N + i
 
     Y = []
     for j in xrange(N,0):
@@ -45,14 +52,10 @@ def subset_sum_dynamic(X,S):
             Q[i][Y.index(x)] = True
             continue
         for j,s in enumerate(Y):
-            if x == s:
+            if Q[i-1][j] or x == s or ((s-x >= N) and (s-x <= P) and Q[i-1][Y.index(s-x)]):
                 Q[i][j] = True
-            elif Q[i-1][j]:
-                Q[i][j] = True
-            elif ((s-x) in Y) and Q[i-1][Y.index(s-x)]:
-                Q[i][j] = True
-            if s == S and Q[i][j]:
-                return _solution(Q,S,X,Y)
+                if s == S:
+                    return _solution(Q,S,X,Y)
 
     return []
 
@@ -76,8 +79,11 @@ if __name__ == "__main__":
         names.append(name)
 
     sol = [ names[i] for i in subset_sum_dynamic(numbers,0) ]
+
     if not sol:
         print "no solution"
         sys.exit(0)
+
+    sol.sort()
     for item in sol:
         print item
