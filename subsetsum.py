@@ -5,7 +5,24 @@ def _solution(Q,S,X,Y):
     for r in Q:
         print r
 
+    sol = []
+    r = len(Q)-1
+    c = Y.index(S)
+    while True:
+        if r == 0:
+            if Q[r][c]:
+                sol.append(r)
+            break
+        if Q[r-1][c]:
+            r = r - 1
+            continue
+        else:
+            sol.append(r)
+            c = Y.index(Y[c] - X[r])
+            r = r - 1
 
+    sol.reverse()
+    return sol
     
 
 def subset_sum(X,S):
@@ -40,7 +57,10 @@ def subset_sum(X,S):
             if s == S and Q[i][j]:
                 return _solution(Q,S,X,Y)
 
+    print "no solution"
+
 
 if __name__ == "__main__":
     ex = [1,-3,2,4]
-    subset_sum(ex,0)
+    sol = [ ex[i] for i in subset_sum(ex,0) ]
+    print sol
