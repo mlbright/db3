@@ -6,6 +6,12 @@
 """
 
 import sys
+from random import shuffle
+
+def _random50():
+    numbers = range(-1000,1001)
+    shuffle(numbers)
+    return numbers[:50]
 
 def _solution(Q,S,X,Y):
 
