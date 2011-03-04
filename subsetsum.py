@@ -8,20 +8,20 @@ def _solution(Q,S,X,Y):
     sol = []
     r = len(Q)-1
     c = Y.index(S)
+
     while True:
+
         if r == 0:
             if Q[r][c]:
                 sol.append(r)
             break
-        if Q[r-1][c]:
-            r = r - 1
-            continue
-        else:
+
+        if not Q[r-1][c]:
             sol.append(r)
             c = Y.index(Y[c] - X[r])
-            r = r - 1
 
-    sol.reverse()
+        r = r - 1
+
     return sol
     
 
@@ -63,4 +63,5 @@ def subset_sum(X,S):
 if __name__ == "__main__":
     ex = [1,-3,2,4]
     sol = [ ex[i] for i in subset_sum(ex,0) ]
+    sol.reverse()    
     print sol
