@@ -18,14 +18,7 @@ def _solution(Q,S,X,Y):
         if not Q[r][c]:
             return sol
 
-            """
-        if r == 0:
-            if Q[r][c]:
-                sol.append(r)
-            return sol 
-            """
-
-        if not Q[r-1][c] or r == 0:
+        if r == 0 or not Q[r-1][c]:
             sol.append(r)
             c = Y.index(Y[c] - X[r])
 
