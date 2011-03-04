@@ -1,9 +1,11 @@
+""" Pseudo polynomial time dynamic programming solution
+    Inspired by http://en.wikipedia.org/wiki/Subset_sum_problem#Pseudo-polynomial_time_dynamic_programming_solution
+    and http://www.skorks.com/2011/02/algorithms-a-dropbox-challenge-and-dynamic-programming/
+"""
+
 import sys
 
 def _solution(Q,S,X,Y):
-
-    for r in Q:
-        print r
 
     sol = []
     r = len(Q)-1
@@ -25,8 +27,7 @@ def _solution(Q,S,X,Y):
     return sol
     
 
-def subset_sum(X,S):
-
+def subset_sum_dynamic(X,S):
     N = sum([ i for i in X if i < 0 ])
     P = sum([ i for i in X if i > 0 ])
 
@@ -36,10 +37,6 @@ def subset_sum(X,S):
     for j in xrange(0,P+1):
         Y.append(j)
 
-    print X
-    print Y
-    print
-    
     Q = []
     for i,x in enumerate(X):
         row = [False] * len(Y)
@@ -57,11 +54,30 @@ def subset_sum(X,S):
             if s == S and Q[i][j]:
                 return _solution(Q,S,X,Y)
 
-    print "no solution"
+    return []
 
 
 if __name__ == "__main__":
+
+    """
     ex = [1,-3,2,4]
-    sol = [ ex[i] for i in subset_sum(ex,0) ]
+    sol = [ ex[i] for i in subset_sum_dynamic(ex,0) ]
     sol.reverse()    
     print sol
+    """
+    
+    names = []
+    numbers = []
+    for i,line in enumerate(sys.stdin.readlines()):
+        if i == 0:
+            continue
+        name, number = line.strip().split()
+        numbers.append(int(number))
+        names.append(name)
+
+    sol = [ names[i] for i in subset_sum_dynamic(numbers,0) ]
+    if not sol:
+        print "no solution"
+        sys.exit(0)
+    for item in sol:
+        print item
